@@ -1,0 +1,72 @@
+1. Purpose of "Applied Steps" pane
+It tracks each transformation you make to your data (e.g., filter, rename, split).
+
+You can edit, reorder, or delete steps to control how data is cleaned.
+
+2. Remove duplicate rows
+Go to Home tab → Click Remove Rows → Remove Duplicates.
+
+3. What the "Filter" icon does
+It lets you include or exclude specific values in a column (like Excel filters).
+
+Found at the top-right of each column.
+
+4. Rename a column
+Right-click on column "CustID" → Select Rename → Type CustomerID.
+
+5. What happens if you click "Close & Apply"
+All applied transformations are saved and the data is loaded into Power BI’s data model for use in visuals.
+
+6. Remove rows where Quantity < 2
+Filter the Quantity column: Click dropdown → Choose Number Filters → Is greater than or equal to 2.
+
+7. Split OrderDate into Year, Month, Day
+Select OrderDate → Go to Add Column → Date → choose Year, Month, and Day.
+
+8. Replace "Mouse" with "Computer Mouse"
+Right-click Product column → Replace Values → Replace Mouse with Computer Mouse.
+
+9. Sort by OrderDate (newest first)
+Click the dropdown on OrderDate → Select Sort Descending.
+
+10. Handle nulls in Price column
+Options:
+
+Replace nulls: Transform → Replace Values → Replace null with a default (e.g., 0).
+
+Or remove: Home → Remove Rows → Remove Blank Rows.
+
+11. Custom M-code to calculate TotalSpent
+m
+Copy
+Edit
+= Table.AddColumn(PreviousStep, "TotalSpent", each [Quantity] * [Price])
+Replace PreviousStep with your actual last step name.
+
+12. Group by CustID to show total spending
+Go to Transform → Group By
+
+Group by: CustID
+
+New column: TotalSpending
+
+Operation: Sum of TotalSpent
+
+13. Fix inconsistent date formats
+Select OrderDate column → Transform → Set Data Type to Date.
+
+Power Query auto-converts both MM/DD/YYYY and YYYY-MM-DD formats into Date type.
+
+14. Create conditional column: High Value if Price > 100
+Go to Add Column → Conditional Column
+
+Name: ValueLabel
+
+If Price > 100 → then "High Value" → else "Normal"
+
+15. Optimize query to reduce refresh time
+Remove unused columns early in the query steps.
+
+Avoid steps like sorting, merging, and grouping until needed.
+
+Use Table.Buffer() in M to cache data if you're using it multiple times.
